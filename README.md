@@ -6,6 +6,12 @@ python 脚本工具
 
 它会在 PyStand 的基础上，自动安装 pip 。
 
+# 安装
+
+```
+pip install yq-pystand-setup
+```
+
 # 使用
 
 ## 创建项目
