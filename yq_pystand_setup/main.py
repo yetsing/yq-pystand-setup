@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
 make_wrapper_pip_code = """
 from pip._vendor.distlib.scripts import ScriptMaker
-maker = ScriptMaker("pip_wrapper/scripts", "pip_wrapper/bin")
+maker = ScriptMaker("runtime/pip_wrapper/scripts", "runtime/pip_wrapper/bin")
 maker.executable = r"python.exe"
 maker.make("pip.py")
 """
@@ -127,7 +127,7 @@ def install_pip(proj_dir: pathlib.Path):
     subprocess.check_call([proj_python_executable, get_pip_filepath])
     os.unlink(get_pip_filepath)
 
-    pip_wrapper_dir = proj_dir / "pip_wrapper"
+    pip_wrapper_dir = proj_dir / "runtime" / "pip_wrapper"
     (pip_wrapper_dir / "bin").mkdir(parents=True, exist_ok=True)
     (pip_wrapper_dir / "scripts").mkdir(parents=True, exist_ok=True)
 
@@ -138,15 +138,14 @@ def install_pip(proj_dir: pathlib.Path):
 
     subprocess.check_call([proj_python_executable, str(make_pip_filepath)])
 
-    runtime_scripts_dir = proj_dir / "runtime" / "Scripts"
     activate_cmd = r"""@echo off
-set PATH=%~dp0pip_wrapper\bin\;%~dp0runtime\Scripts\;%~dp0runtime\;%PATH%
+set PATH=%~dp0runtime\pip_wrapper\bin\;%~dp0runtime\Scripts\;%~dp0runtime\;%PATH%
 """
-    (runtime_scripts_dir / "activate.cmd").write_text(activate_cmd)
+    (proj_dir / "activate.cmd").write_text(activate_cmd)
     activate_ps1 = r"""$ScriptDir = (Split-Path -Parent $MyInvocation.MyCommand.Definition)
-$Env:PATH = "$ScriptDir\pip_wrapper\bin;$ScriptDir\runtime\Scripts;$ScriptDir\runtime;$Env:PATH"
+$Env:PATH = "$ScriptDir\runtime\pip_wrapper\bin;$ScriptDir\runtime\Scripts;$ScriptDir\runtime;$Env:PATH"
 """
-    (runtime_scripts_dir / "activate.ps1").write_text(activate_ps1)
+    (proj_dir / "activate.ps1").write_text(activate_ps1)
 
 
 def pretend_virtualenv(proj_dir: pathlib.Path):

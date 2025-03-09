@@ -30,16 +30,18 @@ py -m yq_pystand_setup --init /path/to/project
 
 首先激活环境
 
+进入项目目录下，执行
+
 ### Activate in cmd
 
 ```
-call runtime\Scripts\activate.cmd
+call activate.cmd
 ```
 
 ### Activate in Powershell
 
 ```
-. runtime\Scripts\activate.ps1
+. activate.ps1
 ```
 
 激活之后 python pip 都会指向项目使用的，如下所示
@@ -49,7 +51,7 @@ $ Get-Command python | Format-List -Property path
 Path : D:\path\to\your\project\runtime\python.exe
 
 $ Get-Command pip | Format-List -Property Path
-Path : D:\path\to\your\project\pip_wrapper\bin\pip.exe
+Path : D:\path\to\your\project\runtime\pip_wrapper\bin\pip.exe
 ```
 
 然后正常使用 pip 安装，例如
