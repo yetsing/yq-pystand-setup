@@ -26,9 +26,9 @@ setup(
     version=get_version(),
     url="https://github.com/yetsing/yq-pystand-setup",
     author="yeqing",
-    license="Apache Software License",
+    license="MIT License",
     classifiers=[
-        "License :: OSI Approved :: Apache Software License",
+        "License :: OSI Approved :: MIT License",
         "Intended Audience :: Developers",
         "Operating System :: Microsoft :: Windows",
         "Programming Language :: C",
