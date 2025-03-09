@@ -68,7 +68,7 @@ def copy_directory(src: str, dst: str):
 
 
 def make_project_dir(name: str) -> pathlib.Path:
-    proj_dir = pathlib.Path(name)
+    proj_dir = pathlib.Path(name).absolute()
     proj_dir.mkdir(parents=True, exist_ok=True)
     return proj_dir
 
@@ -169,7 +169,7 @@ def main():
     args = parser.parse_args()
     proj_name = args.proj_name
     if args.init:
-        proj_dir = pathlib.Path(proj_name)
+        proj_dir = pathlib.Path(proj_name).absolute()
     else:
         log(f"Create project directory {proj_name} ...")
         proj_dir = make_project_dir(proj_name)

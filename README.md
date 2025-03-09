@@ -17,13 +17,13 @@ pip install yq-pystand-setup
 ## 创建项目
 
 ```
-py -m yq-pystand-setup [Project Name]
+py -m yq_pystand_setup [Project Name]
 ```
 
 ## 已有项目初始化
 
 ```
-py -m yq-pystand-setup --init /path/to/project
+py -m yq_pystand_setup --init /path/to/project
 ```
 
 ## 安装包
