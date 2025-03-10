@@ -9,6 +9,7 @@ import zipfile
 
 
 log = print
+script_dir = pathlib.Path(__file__).parent
 
 wrapper_pip_code = """#!/usr/bin/python
 import sys
@@ -24,7 +25,7 @@ if __name__ == "__main__":
 
 make_wrapper_pip_code = """
 from pip._vendor.distlib.scripts import ScriptMaker
-maker = ScriptMaker("runtime/pip_wrapper/scripts", "runtime/pip_wrapper/bin")
+maker = ScriptMaker("runtime/pip_wrapper/scripts", "runtime/")
 maker.executable = r"python.exe"
 maker.make("pip.py")
 """
@@ -128,7 +129,6 @@ def install_pip(proj_dir: pathlib.Path):
     os.unlink(get_pip_filepath)
 
     pip_wrapper_dir = proj_dir / "runtime" / "pip_wrapper"
-    (pip_wrapper_dir / "bin").mkdir(parents=True, exist_ok=True)
     (pip_wrapper_dir / "scripts").mkdir(parents=True, exist_ok=True)
 
     wrapper_pip_filepath = pip_wrapper_dir / "scripts" / "pip.py"
@@ -138,21 +138,14 @@ def install_pip(proj_dir: pathlib.Path):
 
     subprocess.check_call([proj_python_executable, str(make_pip_filepath)])
 
-    activate_cmd = r"""@echo off
-set PATH=%~dp0runtime\pip_wrapper\bin\;%~dp0runtime\Scripts\;%~dp0runtime\;%PATH%
-"""
-    (proj_dir / "activate.cmd").write_text(activate_cmd)
-    activate_ps1 = r"""$ScriptDir = (Split-Path -Parent $MyInvocation.MyCommand.Definition)
-$Env:PATH = "$ScriptDir\runtime\pip_wrapper\bin;$ScriptDir\runtime\Scripts;$ScriptDir\runtime;$Env:PATH"
-"""
-    (proj_dir / "activate.ps1").write_text(activate_ps1)
+    ps_code = (script_dir / "Activate.ps1").read_text()
+    (proj_dir / "runtime" / "Activate.ps1").write_text(ps_code)
 
 
 def pretend_virtualenv(proj_dir: pathlib.Path):
     filenames = [
         "activate",
         "activate.bat",
-        "Activate.ps1",
         "activate_this.py"
     ]
     runtime_dir = proj_dir / "runtime"

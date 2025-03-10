@@ -46,4 +46,5 @@ setup(
     packages=[
         "yq_pystand_setup",
     ],
+    package_data={"yq_pystand_setup": ["Activate.ps1"]},
 )

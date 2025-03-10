@@ -30,18 +30,10 @@ py -m yq_pystand_setup --init /path/to/project
 
 首先激活环境
 
-进入项目目录下，执行
-
-### Activate in cmd
+打开 powershell ，进入项目目录，执行
 
 ```
-call activate.cmd
-```
-
-### Activate in Powershell
-
-```
-. activate.ps1
+. runtime\Activate.ps1
 ```
 
 激活之后 python pip 都会指向项目使用的，如下所示
@@ -51,7 +43,7 @@ $ Get-Command python | Format-List -Property path
 Path : D:\path\to\your\project\runtime\python.exe
 
 $ Get-Command pip | Format-List -Property Path
-Path : D:\path\to\your\project\runtime\pip_wrapper\bin\pip.exe
+Path : D:\path\to\your\project\runtime\pip.exe
 ```
 
 然后正常使用 pip 安装，例如
@@ -74,9 +66,13 @@ pip install flask
 
 [Portable Python Bundles on Windows](https://dev.to/treehouse/portable-python-bundles-on-windows-41ac)
 
+[Activate.ps1](https://github.com/python/cpython/blob/main/Lib/venv/scripts/common/Activate.ps1)
+
+[IDEA isVritualEnv](https://github.com/JetBrains/intellij-community/blob/357f2fde5d5b9e1c2c7d1dbe666322ad442459b6/python/python-psi-impl/src/com/jetbrains/python/sdk/PythonSdkUtil.java#L451)
+
 # 实现
 
 1. 在当前目录下创建项目文件夹
-2. 安装 PyStand （PyStand-py38-x64.7z）
+2. 安装 PyStand （PyStand-py38-x64）
 3. 安装 pip
 4. 其他设置（放一些空文件，让 PyCharm 认为这是一个 vritualenv）
