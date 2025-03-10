@@ -1,3 +1,3 @@
-version_info = ("0", "1", "2")
+version_info = ("0", "1", "3")
 version: str = ".".join(version_info)
 __version__: str = version
