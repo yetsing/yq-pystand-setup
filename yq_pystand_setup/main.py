@@ -121,6 +121,7 @@ def install_pystand(url: str, proj_dir: pathlib.Path):
 
 
 def install_pip(proj_dir: pathlib.Path):
+    proj_python_executable = str(proj_dir / "runtime" / "python.exe")
     get_pip_filepath = str(script_dir / "get-pip.py")
     subprocess.check_call([proj_python_executable, get_pip_filepath])
     os.unlink(get_pip_filepath)
