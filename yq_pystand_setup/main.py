@@ -9,7 +9,7 @@ import zipfile
 
 
 log = print
-script_dir = pathlib.Path(__file__).parent
+script_dir = pathlib.Path(__file__).parent.absolute()
 
 wrapper_pip_code = """#!/usr/bin/python
 import sys
@@ -121,10 +121,7 @@ def install_pystand(url: str, proj_dir: pathlib.Path):
 
 
 def install_pip(proj_dir: pathlib.Path):
-    url = "https://bootstrap.pypa.io/get-pip.py"
-    log(f"  Download get-pip.py from {url}")
-    proj_python_executable = str(proj_dir / "runtime" / "python.exe")
-    get_pip_filepath, _ = urllib.request.urlretrieve(url)
+    get_pip_filepath = str(script_dir / "get-pip.py")
     subprocess.check_call([proj_python_executable, get_pip_filepath])
     os.unlink(get_pip_filepath)
 
